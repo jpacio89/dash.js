@@ -589,16 +589,16 @@ function MssParser(config) {
             manifest.timeShiftBufferDepth = dvrWindowLength / manifest.timescale;
         }
 
-        let duration = parseFloat(smoothStreamingMedia.getAttribute('Duration'));
+        let duration = 0; // parseFloat(smoothStreamingMedia.getAttribute('Duration'));
         manifest.mediaPresentationDuration = (duration === 0) ? Infinity : duration / manifest.timescale;
         manifest.minBufferTime = mediaPlayerModel.getStableBufferTime();
         manifest.ttmlTimeIsRelative = true;
 
         // Live manifest with Duration = start-over
         if (manifest.type === 'dynamic' && duration > 0) {
-            manifest.type = 'static';
+            //manifest.type = 'static';
             // We set timeShiftBufferDepth to initial duration, to be used by MssFragmentController to update segment timeline
-            manifest.timeShiftBufferDepth = duration / manifest.timescale;
+            //manifest.timeShiftBufferDepth = duration / manifest.timescale;
             // Duration will be set according to current segment timeline duration (see below)
         }
 

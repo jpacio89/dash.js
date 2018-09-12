@@ -446,6 +446,7 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
         $scope.player.setLowLatencyEnabled($scope.lowLatencyModeSelected || bufferConfig.lowLatencyMode);
 
         $scope.controlbar.reset();
+        protData['com.microsoft.playready'].cdmData = 'S_bd9e35f1-e863-d763-944d-5c961e430300';
         $scope.player.setProtectionData(protData);
         $scope.player.attachSource($scope.selectedItem.url);
         if ($scope.initialSettings.audio) {

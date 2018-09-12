@@ -67,7 +67,7 @@ const APIS_ProtectionModel_01b = [
 const APIS_ProtectionModel_3Feb2014 = [
     // Un-prefixed as per spec
     // Chrome 38-39 (and some earlier versions) with chrome://flags -- Enable Encrypted Media Extensions
-    {
+    /*{
         // Video Element
         setMediaKeys: 'setMediaKeys',
         // MediaKeys
@@ -81,7 +81,7 @@ const APIS_ProtectionModel_3Feb2014 = [
         message: 'keymessage',
         ready: 'keyadded',
         close: 'keyclose'
-    },
+    },*/
     // MS-prefixed (IE11, Windows 8.1)
     {
         // Video Element
@@ -142,11 +142,11 @@ function Protection() {
         const errHandler = config.errHandler;
         const videoElement = config.videoModel ? config.videoModel.getElement() : null;
 
-        if ((!videoElement || videoElement.onencrypted !== undefined) &&
+        /*if ((!videoElement || videoElement.onencrypted !== undefined) &&
             (!videoElement || videoElement.mediaKeys !== undefined)) {
             logger.info('EME detected on this user agent! (ProtectionModel_21Jan2015)');
             return ProtectionModel_21Jan2015(context).create({ debug: debug, eventBus: eventBus, events: config.events });
-        } else if (getAPI(videoElement, APIS_ProtectionModel_3Feb2014)) {
+        } else */if (getAPI(videoElement, APIS_ProtectionModel_3Feb2014)) {
             logger.info('EME detected on this user agent! (ProtectionModel_3Feb2014)');
             return ProtectionModel_3Feb2014(context).create({ debug: debug, eventBus: eventBus, events: config.events, api: getAPI(videoElement, APIS_ProtectionModel_3Feb2014) });
         } else if (getAPI(videoElement, APIS_ProtectionModel_01b)) {
