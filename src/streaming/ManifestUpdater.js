@@ -143,8 +143,6 @@ function ManifestUpdater() {
         const latencyOfLastUpdate = (date.getTime() - manifest.loadedTime.getTime()) / 1000;
         refreshDelay = dashManifestModel.getManifestUpdatePeriod(manifest, latencyOfLastUpdate);
 
-        refreshDelay = 10;
-
         // setTimeout uses a 32 bit number to store the delay. Any number greater than it
         // will cause event associated with setTimeout to trigger immediately
         if (refreshDelay * 1000 > 0x7FFFFFFF) {
