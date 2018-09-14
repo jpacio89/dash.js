@@ -31,7 +31,7 @@
 import ProtectionController from './controllers/ProtectionController';
 import ProtectionKeyController from './controllers/ProtectionKeyController';
 import ProtectionEvents from './ProtectionEvents';
-// import ProtectionModel_21Jan2015 from './models/ProtectionModel_21Jan2015';
+import ProtectionModel_21Jan2015 from './models/ProtectionModel_21Jan2015';
 import ProtectionModel_3Feb2014 from './models/ProtectionModel_3Feb2014';
 import ProtectionModel_01b from './models/ProtectionModel_01b';
 
@@ -65,23 +65,6 @@ const APIS_ProtectionModel_01b = [
 ];
 
 const APIS_ProtectionModel_3Feb2014 = [
-    // Un-prefixed as per spec
-    // Chrome 38-39 (and some earlier versions) with chrome://flags -- Enable Encrypted Media Extensions
-    /*{
-        // Video Element
-        setMediaKeys: 'setMediaKeys',
-        // MediaKeys
-        MediaKeys: 'MediaKeys',
-        // MediaKeySession
-        release: 'close',
-
-        // Events
-        needkey: 'needkey',
-        error: 'keyerror',
-        message: 'keymessage',
-        ready: 'keyadded',
-        close: 'keyclose'
-    },*/
     // MS-prefixed (IE11, Windows 8.1)
     {
         // Video Element
@@ -96,6 +79,23 @@ const APIS_ProtectionModel_3Feb2014 = [
         message: 'mskeymessage',
         ready: 'mskeyadded',
         close: 'mskeyclose'
+    },
+    // Un-prefixed as per spec
+    // Chrome 38-39 (and some earlier versions) with chrome://flags -- Enable Encrypted Media Extensions
+    {
+        // Video Element
+        setMediaKeys: 'setMediaKeys',
+        // MediaKeys
+        MediaKeys: 'MediaKeys',
+        // MediaKeySession
+        release: 'close',
+
+        // Events
+        needkey: 'needkey',
+        error: 'keyerror',
+        message: 'keymessage',
+        ready: 'keyadded',
+        close: 'keyclose'
     }
 ];
 
@@ -141,12 +141,16 @@ function Protection() {
         const eventBus = config.eventBus;
         const errHandler = config.errHandler;
         const videoElement = config.videoModel ? config.videoModel.getElement() : null;
+        const hasCdmData = config.protectionData &&
+                           config.protectionData['com.microsoft.playready'] &&
+                           config.protectionData['com.microsoft.playready'].cdmData;
 
-        /*if ((!videoElement || videoElement.onencrypted !== undefined) &&
+        if ((!hasCdmData) &&
+            (!videoElement || videoElement.onencrypted !== undefined) &&
             (!videoElement || videoElement.mediaKeys !== undefined)) {
             logger.info('EME detected on this user agent! (ProtectionModel_21Jan2015)');
             return ProtectionModel_21Jan2015(context).create({ debug: debug, eventBus: eventBus, events: config.events });
-        } else */if (getAPI(videoElement, APIS_ProtectionModel_3Feb2014)) {
+        } else if (getAPI(videoElement, APIS_ProtectionModel_3Feb2014)) {
             logger.info('EME detected on this user agent! (ProtectionModel_3Feb2014)');
             return ProtectionModel_3Feb2014(context).create({ debug: debug, eventBus: eventBus, events: config.events, api: getAPI(videoElement, APIS_ProtectionModel_3Feb2014) });
         } else if (getAPI(videoElement, APIS_ProtectionModel_01b)) {

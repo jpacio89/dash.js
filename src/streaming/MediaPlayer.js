@@ -2448,6 +2448,9 @@ function MediaPlayer() {
         if (streamController) {
             streamController.setProtectionData(protectionData);
         }
+
+        protectionController = null;
+        detectProtection();
     }
 
     /*
@@ -2786,7 +2789,8 @@ function MediaPlayer() {
                 eventBus: eventBus,
                 events: Events,
                 BASE64: BASE64,
-                constants: Constants
+                constants: Constants,
+                protectionData: protectionData
             });
             return protectionController;
         }
