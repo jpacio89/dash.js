@@ -1,5 +1,5 @@
 {
-  "name": "dashjs",
+  "name": "tdashjs",
   "version": "2.9.0",
   "description": "A reference client implementation for the playback of MPEG DASH via Javascript and compliant browsers.",
   "main": "build/es5/index.js",
@@ -13,7 +13,8 @@
     "prepublish": "grunt githooks",
     "prepublishOnly": "grunt prepublish",
     "debug": "iron-mocha --require mochahook",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha --require mochahook -- test/"
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha --require mochahook -- test/",
+    "mssDebug": "grunt debug && grunt browserify:mss && grunt copy:dist"
   },
   "devDependencies": {
     "babel": "^5.3.1",
