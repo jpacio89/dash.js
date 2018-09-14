@@ -116,6 +116,10 @@ function TTMLParser() {
 
         eventBus.trigger(Events.TTML_TO_PARSE, content);
 
+        if (content.data) {
+            content.data = content.data.replace(/<p/g, '<div');
+        }
+
         const imsc1doc = fromXML(content.data, function (msg) {
             errorMsg = msg;
         }, metadataHandler);
